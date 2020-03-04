@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 app.get("/test", async (req, res) => {
      try {
          const result = await sequelize.authenticate();
-         res.status(200).send(buildResponse(true, result));
+         res.status(200).send(buildResponse(true, "Connection to database successfully established"));
      } catch (e) {
-         res.status(400).send(buildResponse(false, e));
+         res.status(400).send(buildResponse(false, "Connection to Database failed"));
      }
 });
 
