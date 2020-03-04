@@ -2,11 +2,11 @@
   "name": "web5-schuelerverwaltung-backend-nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "app.js",
   "scripts": {
     "build": "npx shx rm -rf build && npx babel src/ -d build/",
-    "start": "cd build & node app.js",
-    "startBuild": "npm run build & npm start",
+    "start": "cd build && node app.js",
+    "startBuild": "npm run build && npm start",
     "dev": "npx cross-env NODE_ENV=development npx nodemon --watch src --exec 'npm run startBuild'"
   },
   "repository": {

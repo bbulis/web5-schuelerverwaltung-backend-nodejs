@@ -1,9 +1,7 @@
-import Sequelize from "sequelize";
+import Sequelize, {Model} from "sequelize";
 import {sequelize} from "../config/database.config";
 
-class User extends Model{
-
-}
+class User extends Model{}
 User.init({
     id: {
         type: Sequelize.INTEGER,
