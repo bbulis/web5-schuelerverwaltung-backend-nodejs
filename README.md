@@ -25,7 +25,7 @@ Ausführen von `npm start` startet den Server.
 Die Datenbank muss extra  in einem Docker-Container  gestartet werden. 
 Ebenso muss ein `.env` File erstellt werden, welches alle Umgebungsvariablen beinhaltet.
 
-##### Beispiel `.env` File 
+#### Beispiel `.env` File 
 
 ````bash
 PORT=3000
