@@ -10,6 +10,15 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 
+app.get("/test", async (req, res) => {
+     try {
+         const result = await sequelize.authenticate();
+         res.status(200).send(buildResponse(true, result));
+     } catch (e) {
+         res.status(400).send(buildResponse(false, e));
+     }
+});
+
 app.get("/student", (req, res) => {
 
 });
