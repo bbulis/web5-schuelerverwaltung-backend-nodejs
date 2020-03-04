@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import "./config/env.config";
 import {buildResponse} from "../helpers/response";
+import {sequelize} from "./config/database.config";
+import {User} from "./models/user";
 
 const app = express();
 const PORT = process.env.PORT;
