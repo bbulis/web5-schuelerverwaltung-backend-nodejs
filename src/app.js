@@ -13,22 +13,65 @@ app.use(bodyParser.json());
 app.get("/test", async (req, res) => {
      try {
          const result = await sequelize.authenticate();
-         res.status(200).send(buildResponse(true, "Connection to database successfully established"));
+         await User.sync({force: true});
+         res.status(200).send(buildResponse(true, "Connection to database successfully established and database reseted"));
      } catch (e) {
          res.status(400).send(buildResponse(false, "Connection to Database failed"));
      }
 });
 
-app.get("/student", (req, res) => {
-
+app.get("/student", async (req, res) => {
+    try {
+        const students = await User.findAll();
+        if (students.length > 0) {
+            res.status(200).send(buildResponse(true, students))
+        } else {
+            res.status(400).send(buildResponse(false, "No students found"));
+        }
+    } catch (e) {
+        res.status(400).send(buildResponse(false, e));
+    }
 });
 
-app.post("/student", (req, res) => {
-
+app.post("/student", async (req, res) => {
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const schoolclass = req.body.schoolclass;
+    const subject = req.body.subject;
+    const rating = req.body.rating;
+    try {
+        const [user, created] = await User.findOrCreate({
+            where: {
+                firstname,
+                lastname,
+            },
+            defaults: {
+                schoolclass,
+                subject,
+                rating,
+            }
+        });
+        if (!created) {
+            res.status(409).send(buildResponse(false, "Student already exists"));
+        } else {
+            res.status(201).send(buildResponse(true, user));
+        }
+    } catch (e) {
+        res.status(400).send(buildResponse(false, "Invalid Input", e));
+    }
 });
 
-app.get("/student/:id", (req, res) => {
-
+app.get("/student/:id", async (req, res) => {
+    try {
+        const student = await User.findByPk(req.params.id);
+        if (student) {
+            res.status(200).send(buildResponse(true, student));
+        } else {
+            res.status(400).send(buildResponse(false, "Student not found"));
+        }
+    } catch (e) {
+        res.status(500).send(buildResponse(false, "Internal server error", e))
+    }
 });
 
 app.put("/student/:id", (req, res) => {
