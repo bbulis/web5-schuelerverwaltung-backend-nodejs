@@ -70,16 +70,49 @@ app.get("/student/:id", async (req, res) => {
             res.status(400).send(buildResponse(false, "Student not found"));
         }
     } catch (e) {
-        res.status(500).send(buildResponse(false, "Internal server error", e))
+        res.status(500).send(buildResponse(false, "Internal server error", e));
     }
 });
 
-app.put("/student/:id", (req, res) => {
+app.put("/student/:id", async (req, res) => {
+    const id = req.params.id;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const schoolclass = req.body.schoolclass;
+    const subject = req.body.subject;
+    const rating = req.body.rating;
 
+    try {
+        await User.update({
+            firstname: firstname,
+            lastname: lastname,
+            schoolclass: schoolclass,
+            subject: subject,
+            rating: rating
+        }, {
+            where: {
+                id: id
+            }
+        });
+
+        const student = await User.findByPk(id);
+        res.status(200).send(buildResponse(true, student));
+    } catch (e) {
+        res.status(500).send(buildResponse(false, "Internal Server Error", e))
+    }
 });
 
-app.delete("/student/:id", (req, res) => {
-
+app.delete("/student/:id", async (req, res) => {
+    try {
+        await User.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.status(200).send(buildResponse(true, "student was successfully deleted"))
+    } catch (e) {
+        res.status(500).send(buildResponse(false, "Internal server error", e));
+    }
 });
 
 app.listen(PORT, () => {
