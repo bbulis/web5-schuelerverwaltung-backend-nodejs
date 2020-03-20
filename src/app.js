@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import cors from "cors";
 import "./config/env.config";
 import {buildResponse} from "./helpers/response";
 import {sequelize} from "./config/database.config";
@@ -9,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/test", async (req, res) => {
      try {
