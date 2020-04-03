@@ -38,3 +38,9 @@ DB_DIALECT=mysql
 DB_PORT=3306
 ````
 
+## Beschreibung - Sequelize
+Sequelize ist ein ORM, welches verwendet werden kann, um Datenmoddel zu erzeugen. Diese Models können konfiguriert werden und direkt in die Datenbank übertragen werden. 
+Durch das JS-Objekt, welches Sequelize übergeben wird, wird eine Struktur in der Datenbank erzeugt, welche dem Model entspricht.
+
+## Deployment mit Docker
+Sowohl die Datenbank als auch das Backend selbst wurden in Docker-Container auf dem Server lauffähig gemacht. Das Backend wurde mittels Bable von ES6 zu ES5 umgeschrieben und somit konnte dies mit älteren NodeJS Versionen betriben werden. 
